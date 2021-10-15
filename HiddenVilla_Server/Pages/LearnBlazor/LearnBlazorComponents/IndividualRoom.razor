@@ -1,0 +1,29 @@
+<div class="bg-light border p-2 col-5">
+    <input type="checkbox" @onchange="RoomCheckboxSelectionChanged" />
+    <h4 class="text-secondary">Room - @Room.Id</h4>
+    @Room.RoomName <br/>
+    @Room.Price.ToString("c") <br/>
+    <input type="checkbox" @bind-value="Room.IsActive" checked="@(Room.IsActive ? "checked" : null)"/> &nbsp; Is Active <br>
+    <span>The room is @(Room.IsActive ? "Active" : "Inactive")</span><br>
+    @if (Room.IsActive)
+    {
+        @foreach (var prop in Room.BlazorRoomProps)
+        {
+            <p>@prop.Name - @prop.Value</p>
+        }
+    }
+
+    <EditDeleteButton IsAdmin="true"/>
+</div>
+
+@code {
+
+    private async Task RoomCheckboxSelectionChanged(ChangeEventArgs e)
+    {
+        await OnRoomCheckBoxSelection.InvokeAsync((bool)e.Value);
+    }
+    [Parameter]
+    public BlazorRoom Room { get; set; }
+    [Parameter]
+    public EventCallback<bool> OnRoomCheckBoxSelection { get; set; }
+}

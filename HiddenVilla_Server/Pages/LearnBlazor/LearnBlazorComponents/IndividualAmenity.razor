@@ -1,0 +1,32 @@
+@using Microsoft.AspNetCore.Authentication
+<div class="bg-light border p-2 col-5" @onclick="(args) => AmenitySelected(args, Amenity.Name)">
+    <h4 class="text-secondary">Amenities - @Amenity.Id</h4>
+    @Amenity.Name <br/>
+    @Amenity.Description <br/>
+    @if (ChildContent1 != null)
+    {
+        <span>@ChildContent1</span>
+    }
+    @if (ChildContent2 != null)
+        {
+            <span>@ChildContent2</span>
+        }
+</div>
+
+@code {
+
+    private async Task AmenitySelected(MouseEventArgs e, string name)
+    {
+        await OnAmenityChanged.InvokeAsync(name);
+    } 
+
+    [Parameter]
+    public BlazorAmenity Amenity { get; set; }
+    [Parameter]
+    public EventCallback<string> OnAmenityChanged { get; set; }
+    [Parameter]
+    public RenderFragment ChildContent1 { get; set; }
+    [Parameter]
+    public RenderFragment ChildContent2 { get; set; }
+    
+}

@@ -1,0 +1,11 @@
+<div>
+    <h4 class="text-primary pt-3">Another Child Component</h4>
+    <input id="roomName" @attributes="InputAttributes" required="required"/>
+</div>
+
+@code {
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> InputAttributes { get; set; } = new();
+
+}
